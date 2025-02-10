@@ -25,7 +25,6 @@ This repository contains the implementation and code for the paper **"Real-time 
     - [CycleGAN Experiments](#cyclegan-experiments)
     - [PEM Experiments](#pem-experiments)
   - [Main Findings](#main-findings)
-  - [References](#references)
 
 ---
 
@@ -259,20 +258,11 @@ PEM demonstrated the potential of transformer-based architectures for domain ada
 2. **Domain Adaptation Performance**:
    - Data augmentation (AUG2 + AUG3) provided the best cross-domain results (mIoU = 0.3509).
    - PEM outperformed other approaches in domain adaptation tasks (mIoU = 0.4685).
-3. **Limitations of CycleGAN and Adversarial Learning**:
+3. **Limitations of CycleGAN, Adversarial Learning and DACS**:
    - CycleGAN-generated images introduced biases that reduced segmentation accuracy.
-   - Adversarial learning did not yield significant improvements on the LoveDA dataset.
+   - Adversarial learning and DACS did not yield significant improvements on the LoveDA dataset.
+4. **PEM Best Trasformer-based Model**:
+   - PEM demonstrated the potential of transformer-based architectures for domain adaptation.
 
 ---
-
-## References
-
-1. Ianniello et al., *Real-time Domain Adaptation in Semantic Segmentation*, January 2025.
-2. Chen et al., *DeepLab: Semantic Image Segmentation*, IEEE Transactions on PAMI, 2017.
-3. Feng et al., *PIDNet: A Real-Time Semantic Segmentation Network*, arXiv preprint, March 2021.
-4. Zhu et al., *Unpaired Image-to-Image Translation Using CycleGAN*, arXiv preprint, March 2020.
-
 For more details, refer to the paper or contact the authors via GitHub Issues or Pull Requests!
-
-Citations:
-[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/45403030/39671f9a-bd2e-4bd4-a3ae-fef967684b9a/s327313_s324807_s326811_project4.pdf
