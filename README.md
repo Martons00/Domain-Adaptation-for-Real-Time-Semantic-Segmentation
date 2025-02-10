@@ -129,6 +129,7 @@ Key features:
 ---
 
 ## Experiments and Results
+You can find all the results in the folder /Experiments and Results
 
 ### DeepLabV2 Experiments
 
