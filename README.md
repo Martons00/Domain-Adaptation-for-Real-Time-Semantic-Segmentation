@@ -19,7 +19,9 @@ This repository contains the implementation and code for the paper **"Real-time 
     - [PIDNet Experiments](#pidnet-experiments)
     - [Data Augmentation Experiments](#data-augmentation-experiments)
     - [Adversarial Learning Experiments](#adversarial-learning-experiments)
+  - [| PIDNet Best Aug| 0.3509 | 0.5306   | 0.2683 | 0.3407 | 0.4896 | 0.1072 | 0.2865    | 0.4332   |](#-pidnet-best-aug-03509--05306----02683--03407--04896--01072--02865-----04332---)
     - [DACS Experiments](#dacs-experiments)
+  - [| PIDNet Best Aug| 0.3509 | 0.5306   | 0.2683 | 0.3407 | 0.4896 | 0.1072 | 0.2865    | 0.4332   |](#-pidnet-best-aug-03509--05306----02683--03407--04896--01072--02865-----04332----1)
     - [CycleGAN Experiments](#cyclegan-experiments)
     - [PEM Experiments](#pem-experiments)
   - [Main Findings](#main-findings)
@@ -56,16 +58,14 @@ The repository is organized as follows:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/LucaIanniello/AML2024.git
-   cd AML2024
+    git clone https://github.com/Martons00/Real-time-Domain-Adaptation-in-Semantic-Segmentation
+    cd Real-time-Domain-Adaptation-in-Semantic-Segmentation
    ```
 
 2. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-
-3. Configure paths and hyperparameters in `config.yaml`.
 
 ---
 
@@ -87,25 +87,39 @@ pip install -r requirements.txt
 ### Running Models
 
 - **DeepLabV2 Training**:
-  ```bash
-  python code/deeplabv2/train.py --config config/deeplabv2.yaml
-  ```
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1ywc1VuXIAH3tmSfRn8ev3yvSJDGAvSxF?usp=sharing)
+- Atrous convolutions for dense feature extraction
+- ASPP module for multi-scale context
+
 - **PIDNet Training**:
-  ```bash
-  python code/pidnet/train.py --config config/pidnet.yaml
-  ```
-- **Data Augmentation Experiments**:
-  ```bash
-  python experiments/augmentation/run_augmentation.py --config config/augmentation.yaml
-  ```
-- **Adversarial Learning**:
-  ```bash
-  python experiments/adversarial/run_adversarial.py --config config/adversarial.yaml
-  ```
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/126h9tjDoQ4w1jrmareDz9scs8UbT5VMe?usp=sharing)
+
+Locally: 
+```
+cd PIDNet
+pip install -r requirements.txt
+python tools/importDataset.py
+```
+In run.sh  you will find all the commands to start the trainings. 
+
+- Triple-branch architecture (P/I/D)
+- Boundary-aware loss function
+- Real-time inference capabilities
+
 - **CycleGAN Training**:
-  ```bash
-  python code/cyclegan/train.py --config config/cyclegan.yaml
-  ```
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1coAv3KDPPzsrPN3k-t6qIDQ5AKYw-kEP?usp=sharing)
+
+Dataset CycleGAN LoveDa-Urban images: https://zenodo.org/records/14739456
+
+- Unpaired image-to-image translation
+- Cycle-consistency loss
+- Semantic-guided style transfer
+
+- **PEM Training**:
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1KbzvDoGrSK90cJrAZCP5IxDz6apq-0DR?usp=sharing)
+- Deformable transformer architecture
+- Prototype-based cross-attention
+- Panoptic segmentation support
 
 ---
 
@@ -113,14 +127,25 @@ pip install -r requirements.txt
 
 ### DeepLabV2 Experiments
 
-DeepLabV2 was evaluated on the LoveDA dataset with different configurations of optimizers (Adam, SGD), loss functions (Cross Entropy, Dice Loss), and learning rates.
+DeepLabV2 was evaluated on the LoveDA dataset with different configurations of optimizers (Adam, SGD), loss functions , and learning rates.
 
-| Optimizer | Loss Function | mIoU | Learning Rate |
-|-----------|---------------|------|---------------|
-| Adam      | CE            | 0.2734 | 0.001       |
-| SGD       | Dice          | 0.3610 | 0.001       |
+DeepLab V2 on LoveDA-Urban (Train & Val) , 20 epochs
+ 
+| Number | Optimizer | Loss  | Scheduler | Picture Size | bestmIoU | lr   | Latency (s) |
+|--------|-----------|-------|-----------|--------------|---------|------|-------------|
+| 1      | Adam      | CE    | True      | 720x720      | 0.2734  | 0.001| 0.005340    |
+| 2      | Adam      | DICE  | True      | 720x720      | 0.1274  | 0.001| 0.005236    |
+| 3      | Adam      | FOCAL | True      | 720x720      | 0.2559  | 0.001| 0.005734    |
+| 4      | Adam      | OCE   | True      | 720x720      | 0.2687  | 0.001| 0.005383    |
+| 5      | SGD       | CE    | True      | 720x720      | 0.3364  | 0.01 | 0.005062    |
+| 6      | SGD       | DICE  | True      | 720x720      | 0.3112  | 0.01 | 0.005163    |
+| 7      | SGD       | FOCAL | True      | 720x720      | 0.2761  | 0.01 | 0.005105    |
+| 8      | SGD       | OCE   | True      | 720x720      | 0.3473  | 0.01 | 0.004744    |
+| 9      | SGD       | DICE  | True      | 720x720      | 0.3610  | 0.001| 0.004934    |
+| 10     | SGD       | CE    | True      | 720x720      | 0.3526  | 0.001| 0.005232    |
+| 11     | SGD       | OCE   | True      | 720x720      | 0.3422  | 0.001| 0.005422    |
 
-SGD with Dice Loss achieved the best performance (mIoU = 0.3610).
+
 
 ---
 
@@ -128,10 +153,26 @@ SGD with Dice Loss achieved the best performance (mIoU = 0.3610).
 
 PIDNet was tested with various optimizers, loss functions (OHEM, Focal Loss), and resolutions.
 
-| Optimizer | Loss Function | Resolution | mIoU |
-|-----------|---------------|------------|------|
-| Adam      | OHEM          | $$720 \times 720$$ | 0.4368 |
-| SGD       | Focal         | $$720 \times 720$$ | 0.2245 |
+Here's the table without the last two columns for PIDNet on LoveDA-Urban (Train & Val), 20 epochs:
+
+| Number | Optimizer | Loss  | Scheduler | Picture Size | mIoU   | Latency (sec) |
+|--------|-----------|-------|-----------|--------------|--------|---------------|
+| 1      | Adam      | CE    | False     | 720x720      | 0.3617 | 0.029         |
+| 2      | Adam      | CE    | False     | 1024x1024    | 0.3906 | 0.027         |
+| 3      | Adam      | CE    | True      | 720x720      | 0.3727 | 0.029         |
+| 4      | Adam      | CE    | True      | 1024x1024    | 0.3893 | 0.027         |
+| 5      | Adam      | OHEM  | False     | 720x720      | 0.3318 | 0.034         |
+| 6      | Adam      | OHEM  | True      | 1024x1024    | 0.4275 | 0.033         |
+| 7      | Adam      | OHEM  | True      | 720x720      | 0.4368 | 0.030         |
+| 8      | Adam      | DICE  | True      | 720x720      | 0.3663 | 0.033         |
+| 9      | Adam      | FOCAL | True      | 720x720      | 0.4233 | 0.033         |
+| 10     | SDG       | OHEM  | False     | 720x720      | 0.3868 | 0.035         |
+| 11     | SDG       | OHEM  | False     | 1024x1024    | 0.3059 | 0.031         |
+| 12     | SDG       | CE    | False     | 720x720      | 0.2630 | 0.029         |
+| 13     | SDG       | OHEM  | True      | 720x720      | 0.3657 | 0.033         |
+| 14     | SDG       | DICE  | False     | 720x720      | 0.3442 | 0.033         |
+| 15     | SDG       | FOCAL | False     | 720x720      | 0.2245 | 0.033         |
+| 16     | SDG       | CE    | True      | 1024x1024    | 0.3554 | 0.027         |
 
 Adam with OHEM Loss at $$720 \times 720$$ resolution delivered the best performance (mIoU = 0.4368).
 
@@ -141,11 +182,17 @@ Adam with OHEM Loss at $$720 \times 720$$ resolution delivered the best performa
 
 Four augmentation techniques were tested to improve cross-domain performance:
 
-| Augmentation Technique    | mIoU |
-|---------------------------|------|
-| Baseline                 | 0.2296 |
-| AUG_CHANCE               | 0.2951 |
-| AUG2 + AUG3              | **0.3509** |
+| Number | AUG_CHANCE | AUG1  | AUG2  | AUG3  | mIoU | Building | Road   | Water  | Barren | Forest  | Grassland | Farmland |
+|--------|------------|-------|-------|-------|---------------|----------|--------|--------|--------|---------|-----------|----------|
+| Default| False      | False | False | False | 0.2296        | 0.4158   | 0.2176 | 0.1666 | 0.3349 | 0.0590  | 0.1415    | 0.2716   |
+| 1      | TRUE       | False | False | False | 0.2951        | 0.5217   | 0.3381 | 0.3098 | 0.3188 | 0.0673  | 0.0839    | 0.4262   |
+| 2      | TRUE       | True  | False | False | 0.3042        | 0.5255   | 0.3789 | 0.3074 | 0.4121 | 0.0377  | 0.0265    | 0.4417   |
+| 3      | TRUE       | False | True  | False | 0.3108        | 0.4900   | 0.3403 | 0.3097 | 0.4075 | 0.0582  | 0.1526    | 0.4170   |
+| 4      | TRUE       | True  | True  | False | 0.3143        | 0.4766   | 0.3495 | 0.3304 | 0.3810 | 0.0682  | 0.1779    | 0.4165   |
+| 5      | TRUE       | False | False | True  | 0.3020        | 0.5257   | 0.3998 | 0.2933 | 0.3413 | 0.0708  | 0.0574    | 0.4257   |
+| 6      | TRUE       | True  | False | True  | 0.3008        | 0.5102   | 0.3952 | 0.3130 | 0.3587 | 0.0457  | 0.0505    | 0.4324   |
+| 7      | TRUE       | False | True  | True  | 0.3509        | 0.5306   | 0.2683 | 0.3407 | 0.4896 | 0.1072  | 0.2865    | 0.4332   |
+| 8      | TRUE       | True  | True  | True  | 0.3014        | 0.4877   | 0.3868 | 0.3008 | 0.3700 | 0.0586  | 0.1589    | 0.3472   |
 
 Combining color shifts (AUG2) and geometric transformations (AUG3) yielded the highest mIoU of 0.3509.
 
@@ -155,31 +202,32 @@ Combining color shifts (AUG2) and geometric transformations (AUG3) yielded the h
 
 Adversarial learning was applied to PIDNet but resulted in reduced performance compared to baseline methods:
 
-| Model         | mIoU |
-|---------------|------|
-| PIDNet        | **0.3509** |
-| PIDNet ADV    | 0.2770 |
-
+| Model         | mIoU   | Building | Road   | Water  | Barren | Forest | Grassland | Farmland |
+|--------------|--------|----------|--------|--------|--------|--------|-----------|----------|
+| Baseline     | 0.2296 | 0.4158   | 0.2176 | 0.1666 | 0.3349 | 0.0590 | 0.1415    | 0.2716   |
+| PIDNet ADV   | 0.2770 | 0.5145   | 0.2651 | 0.2679 | 0.3808 | 0.1306 | 0.0585    | 0.3217   |
+| PIDNet Best Aug| 0.3509 | 0.5306   | 0.2683 | 0.3407 | 0.4896 | 0.1072 | 0.2865    | 0.4332   |
 ---
 
 ### DACS Experiments
 
 DACS improved segmentation by leveraging pseudo-labels but underperformed compared to optimal augmentation:
 
-| Model         | mIoU |
-|---------------|------|
-| PIDNet        | **0.3509** |
-| PIDNet DACS   | 0.2918 |
-
+| Model         | mIoU   | Building | Road   | Water  | Barren | Forest | Grassland | Farmland |
+|--------------|--------|----------|--------|--------|--------|--------|-----------|----------|
+| Baseline     | 0.2296 | 0.4158   | 0.2176 | 0.1666 | 0.3349 | 0.0590 | 0.1415    | 0.2716   |
+| PIDNet  DACS          | 0.2918 | 0.5454   | 0.3345 | 0.2913 | 0.4343 | 0.1016  | 0.2310    | 0.3959  |
+| PIDNet Best Aug| 0.3509 | 0.5306   | 0.2683 | 0.3407 | 0.4896 | 0.1072 | 0.2865    | 0.4332   |
 ---
 
 ### CycleGAN Experiments
 
 CycleGAN-generated images were used to train PIDNet but failed to significantly improve performance:
 
-| Model         | Training Set         | Test Set         | mIoU |
-|---------------|----------------------|------------------|------|
-| PIDNet        | CycleGAN Urban       | Rural            | 0.2880 |
+| Model     | Training Set          | Target Set     | Test Set             | mIoU   | Building | Road   | Water  | Barren | Forest  | Grassland | Farmland |
+|--------------|-----------------------|----------------|----------------------|--------|----------|--------|--------|--------|---------|-----------|----------|
+| PIDNet       | CycleGAN LoveDa-Urban | LoveDa-Rural   | CycleGAN LoveDa-Urban| 0.4035 | 0.3508   | 0.4845 | 0.5442 | 0.6434 | 0.0919  | 0.3659    | 0.3440   |
+| PIDNet        | CycleGAN LoveDa-Urban | LoveDa-Rural   | LoveDa-Rural         | 0.2880 | 0.5127   | 0.1962 | 0.3027 | 0.4716 | 0.0625  | 0.0353    | 0.4349   |
 
 CycleGAN introduced biases that limited its effectiveness for domain adaptation.
 
@@ -189,9 +237,11 @@ CycleGAN introduced biases that limited its effectiveness for domain adaptation.
 
 PEM outperformed other approaches in cross-domain scenarios:
 
-| Model         | Training Set         | Test Set         | mIoU |
-|---------------|----------------------|------------------|------|
-| PEM-CycleGAN  | CycleGAN Urban       | Rural            | **0.4685** |
+| Codice | Modello               | Training Set          | Test Set          | mIoU    | fwIoU   | mACC    | pACC    |
+|--------|-----------------------|-----------------------|-------------------|---------|---------|---------|---------|
+| 01     | PEM-URBAN             | LoveDa-Urban          | LoveDa-Urban      | 64.4429 | 60.3522 | 75.1795 | 74.5604 |
+| 02     | PEM-RURAL             | LoveDa-Rural          | LoveDa-Rural      | 44.5885 | 56.3823 | 54.6906 | 71.6951 |
+| 03     | PEM-CycleGAN-RURAL    | CycleGAN LoveDa-Urban | LoveDa-Rural      | 46.8514 | 54.9652 | 62.2863 | 68.8383 |
 
 PEM demonstrated the potential of transformer-based architectures for domain adaptation.
 
