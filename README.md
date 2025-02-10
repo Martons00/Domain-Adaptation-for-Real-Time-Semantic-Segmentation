@@ -86,37 +86,43 @@ pip install -r requirements.txt
 
 ### Running Models
 
-- **DeepLabV2 Training**:
+**DeepLabV2**
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1ywc1VuXIAH3tmSfRn8ev3yvSJDGAvSxF?usp=sharing)
+
+Key features:
 - Atrous convolutions for dense feature extraction
 - ASPP module for multi-scale context
 
-- **PIDNet Training**:
+**PIDNet**
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/126h9tjDoQ4w1jrmareDz9scs8UbT5VMe?usp=sharing)
 
-Locally: 
-```
+Local installation:
+```bash
 cd PIDNet
 pip install -r requirements.txt
 python tools/importDataset.py
 ```
-In run.sh  you will find all the commands to start the trainings. 
+Training commands are available in `run.sh`
 
+Key features:
 - Triple-branch architecture (P/I/D)
 - Boundary-aware loss function
 - Real-time inference capabilities
 
-- **CycleGAN Training**:
+**CycleGAN**
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1coAv3KDPPzsrPN3k-t6qIDQ5AKYw-kEP?usp=sharing)
 
-Dataset CycleGAN LoveDa-Urban images: https://zenodo.org/records/14739456
+Dataset: [LoveDa-Urban images](https://zenodo.org/records/14739456)
 
+Key features:
 - Unpaired image-to-image translation
 - Cycle-consistency loss
 - Semantic-guided style transfer
 
-- **PEM Training**:
+**PEM**
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1KbzvDoGrSK90cJrAZCP5IxDz6apq-0DR?usp=sharing)
+
+Key features:
 - Deformable transformer architecture
 - Prototype-based cross-attention
 - Panoptic segmentation support
