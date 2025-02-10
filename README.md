@@ -19,9 +19,7 @@ This repository contains the implementation and code for the paper **"Real-time 
     - [PIDNet Experiments](#pidnet-experiments)
     - [Data Augmentation Experiments](#data-augmentation-experiments)
     - [Adversarial Learning Experiments](#adversarial-learning-experiments)
-  - [| PIDNet Best Aug| 0.3509 | 0.5306   | 0.2683 | 0.3407 | 0.4896 | 0.1072 | 0.2865    | 0.4332   |](#-pidnet-best-aug-03509--05306----02683--03407--04896--01072--02865-----04332---)
     - [DACS Experiments](#dacs-experiments)
-  - [| PIDNet Best Aug| 0.3509 | 0.5306   | 0.2683 | 0.3407 | 0.4896 | 0.1072 | 0.2865    | 0.4332   |](#-pidnet-best-aug-03509--05306----02683--03407--04896--01072--02865-----04332----1)
     - [CycleGAN Experiments](#cyclegan-experiments)
     - [PEM Experiments](#pem-experiments)
   - [Main Findings](#main-findings)
@@ -212,7 +210,8 @@ Adversarial learning was applied to PIDNet but resulted in reduced performance c
 |--------------|--------|----------|--------|--------|--------|--------|-----------|----------|
 | Baseline     | 0.2296 | 0.4158   | 0.2176 | 0.1666 | 0.3349 | 0.0590 | 0.1415    | 0.2716   |
 | PIDNet ADV   | 0.2770 | 0.5145   | 0.2651 | 0.2679 | 0.3808 | 0.1306 | 0.0585    | 0.3217   |
-| PIDNet Best Aug| 0.3509 | 0.5306   | 0.2683 | 0.3407 | 0.4896 | 0.1072 | 0.2865    | 0.4332   |
+| PIDNet Best Aug | 0.3509 | 0.5306   | 0.2683 | 0.3407 | 0.4896 | 0.1072 | 0.2865    | 0.4332   |
+
 ---
 
 ### DACS Experiments
@@ -223,7 +222,8 @@ DACS improved segmentation by leveraging pseudo-labels but underperformed compar
 |--------------|--------|----------|--------|--------|--------|--------|-----------|----------|
 | Baseline     | 0.2296 | 0.4158   | 0.2176 | 0.1666 | 0.3349 | 0.0590 | 0.1415    | 0.2716   |
 | PIDNet  DACS          | 0.2918 | 0.5454   | 0.3345 | 0.2913 | 0.4343 | 0.1016  | 0.2310    | 0.3959  |
-| PIDNet Best Aug| 0.3509 | 0.5306   | 0.2683 | 0.3407 | 0.4896 | 0.1072 | 0.2865    | 0.4332   |
+| PIDNet Best Aug | 0.3509 | 0.5306   | 0.2683 | 0.3407 | 0.4896 | 0.1072 | 0.2865    | 0.4332   |
+
 ---
 
 ### CycleGAN Experiments
